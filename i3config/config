@@ -246,16 +246,16 @@ bar {
 # Focus follows mouse
 focus_follows_mouse yes
 
-# sticky window
+# Sticky window
 bindsym $mod+Shift+s sticky toggle
 
 # Window borders
 new_window 1pixel
 
-# start rofi (a program launcher)
+# Start rofi (a program launcher)
 bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -padding 230 -fullscreen -opacity "40" -color-enabled -color-window "$bg-color" "$bg-color" "$bg-color" "$bg-color" "$bg-color" -font "System San Francisco Display Regular 20"
 
-# change volume or toggle mute
+# Change volume or toggle mute
 exec --no-startup-id amixer -q sset -D pulse Master 50% && pkill -RTMIN+1 i3blocks # To start volume at boot
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset -D pulse Master 2%+ && pkill -RTMIN+1 i3blocks 
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset -D pulse Master 2%- && pkill -RTMIN+1 i3blocks
