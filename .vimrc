@@ -1,6 +1,8 @@
 " .vimrc from Alejandro Macedo
 "
 "
+" Color scheme elflord
+colorscheme elflord
 " Disabling features from the distro
 set nocompatible
 
