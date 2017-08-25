@@ -25,7 +25,8 @@ set confirm
 set visualbell
 set t_vb=
 set cmdheight=2
-set number
+set number " Show lines' number
+set relativenumber " Relative numbers
 
 " Set tab spacing
 set shiftwidth=3
