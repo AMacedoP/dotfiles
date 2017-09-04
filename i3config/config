@@ -1,8 +1,9 @@
 # i3 Config File
 
+# Set mod to WindowsKey
 set $mod Mod4
 
-# Font
+# Set Font in i3
 font pango:System San Francisco Display Regular 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -17,32 +18,38 @@ bindsym $mod+Shift+q kill
 # Lock
 bindsym $mod+Shift+x exec --no-startup-id i3lock-fancy -gt "Tipia tu contraseña wey!" -- scrot -z
 
+# Set keys to match vim movements
+set $downHome  j
+set $upHome	   k
+set $rightHome	l
+set $leftHome  h
+
 # Change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+$leftHome  focus left
+bindsym $mod+$downHome  focus down
+bindsym $mod+$upHome    focus up
+bindsym $mod+$rightHome focus right
 
 # Alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
 bindsym $mod+Right focus right
 
 # Move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+$leftHome  move left
+bindsym $mod+Shift+$downHome  move down
+bindsym $mod+Shift+$upHome    move up
+bindsym $mod+Shift+$rightHome move right
 
 # Alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+i split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -64,9 +71,7 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-# focus the child container
-#bindsym $mod+d focus child
-
+# Set workspaces names
 set $workspace1 "1 "
 set $workspace2 "2 "
 set $workspace3 "3 "
@@ -78,7 +83,7 @@ set $workspace8 "8 "
 set $workspace9 "9 "
 set $workspace10 "10 "
 
-# switch to workspace
+# Switch to workspace
 bindsym $mod+1 workspace $workspace1
 bindsym $mod+2 workspace $workspace2
 bindsym $mod+3 workspace $workspace3
@@ -90,11 +95,11 @@ bindsym $mod+8 workspace $workspace8
 bindsym $mod+9 workspace $workspace9
 bindsym $mod+0 workspace $workspace10
 
-# cycle through all opened workspaces
+# Cycle through all opened workspaces
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
-# move focused container to workspace
+# Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $workspace1
 bindsym $mod+Shift+2 move container to workspace $workspace2
 bindsym $mod+Shift+3 move container to workspace $workspace3
@@ -110,18 +115,18 @@ assign [class="Google-chrome"] $workspace2
 assign [class="netease-cloud-music"] $workspace10
 
 # Making NetEase Cloud Music floating and in a specific position
-for_window [class="netease-cloud-music"] floating enable, resize shrink height 100px, resize shrink width 80px, move position 200px 90px 
+#for_window [class="netease-cloud-music"] floating enable, resize shrink height 100px, resize shrink width 80px, move position 200px 90px
 
-# reload the configuration file
+# Reload the configuration file
 bindsym $mod+Shift+c reload
 
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 
-# exit i3 (logs you out of your X session)
+# Exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/scripts/exit_menu
 
-# resize window (you can also use the mouse for that)
+# Resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
@@ -129,15 +134,15 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym $leftHome  resize shrink width 10 px or 10 ppt
+        bindsym $downHome  resize grow height 10 px or 10 ppt
+        bindsym $upHome    resize shrink height 10 px or 10 ppt
+        bindsym $rightHome resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Left  resize shrink width 10 px or 10 ppt
+        bindsym Down  resize grow height 10 px or 10 ppt
+        bindsym Up    resize shrink height 10 px or 10 ppt
         bindsym Right resize grow width 10 px or 10 ppt
 
         # back to normal: Enter or Escape
@@ -149,36 +154,36 @@ bindsym $mod+r mode "resize"
 
 # Gaps configuration
 
-set $default_gaps_inner 12
-set $default_gaps_outer 5
+set $default_gaps_inner 15
+set $default_gaps_outer 15
 gaps inner $default_gaps_inner
 gaps outer $default_gaps_outer
 
 smart_gaps on
- 
+
 set $mode_gaps Gaps: (o) outer, (i) inner
 set $mode_gaps_outer Outer Gaps: +|-|d|0 (local), Shift + +|-|d|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|d|0 (local), Shift + +|-|d|0 (global)
 bindsym $mod+Shift+g mode "$mode_gaps"
- 
+
 mode "$mode_gaps" {
         bindsym o      mode "$mode_gaps_outer"
         bindsym i      mode "$mode_gaps_inner"
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
- 
+
 mode "$mode_gaps_inner" {
         bindsym plus  gaps inner current plus 5
         bindsym minus gaps inner current minus 5
         bindsym 0     gaps inner current set 0
         bindsym d     gaps inner current set $default_gaps_inner
- 
+
         bindsym Shift+plus  gaps inner all plus 5
         bindsym Shift+minus gaps inner all minus 5
         bindsym Shift+0     gaps inner all set 0
         bindsym Shift+d     gaps inner all set $default_gaps_inner
- 
+
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
@@ -187,12 +192,12 @@ mode "$mode_gaps_outer" {
         bindsym minus gaps outer current minus 5
         bindsym 0     gaps outer current set 0
         bindsym d     gaps outer current set $default_gaps_outer
- 
+
         bindsym Shift+plus  gaps outer all plus 5
         bindsym Shift+minus gaps outer all minus 5
         bindsym Shift+0     gaps outer all set 0
         bindsym Shift+d     gaps outer all set $default_gaps_outer
- 
+
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
@@ -231,15 +236,15 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    status_command i3blocks -c ~/.config/i3/i3blocks.conf
-    position top
+	status_command i3blocks -c ~/.config/i3/i3blocks.conf
+	position top
 	colors {
 		background $bg-color
-    		separator #ffffff
-		#                  border             background         text
+		separator #ffffff
+		# #                border             background         text
 		focused_workspace  $bg-color          $bg-color          $text-color
-        	inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-        	urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
 	}
 }
 
@@ -257,7 +262,7 @@ bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -padding 230 -fullscreen -opac
 
 # Change volume or toggle mute
 exec --no-startup-id amixer -q sset -D pulse Master 50% && pkill -RTMIN+1 i3blocks # To start volume at boot
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset -D pulse Master 2%+ && pkill -RTMIN+1 i3blocks 
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset -D pulse Master 2%+ && pkill -RTMIN+1 i3blocks
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset -D pulse Master 2%- && pkill -RTMIN+1 i3blocks
 bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse sset Master toggle && pkill -RTMIN+1 i3blocks
 
@@ -266,7 +271,7 @@ bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5 # increase screen br
 bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5 # decrease screen brightness
 
 # Touchpad controls
-#bindsym XF86TouchpadToggle exec ~/.config/i3/scripts/toggletouchpad.sh 
+#bindsym XF86TouchpadToggle exec ~/.config/i3/scripts/toggletouchpad.sh
 
 # Keyboard layouts
 exec --no-startup-id setxkbmap -model pc105 -layout us,es -option grp:alt_shift_toggle
@@ -294,3 +299,13 @@ exec_always --no-startup-id feh --bg-scale ~/Pictures/Evangelion.jpg
 
 # Screen Renderer (for Toshiba display 1366x768)
 exec_always --no-startup-id xrandr --output LVDS-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-1 -
+
+
+for_window [instance="^Download"] floating enable
+for_window [instance="^Update"] floating enable
+for_window [instance="^file_progress"] floating enable
+for_window [window_role="About"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [window_role="^Manager"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="GtkFileChooserDialog"] floating enable
