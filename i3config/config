@@ -295,6 +295,7 @@ exec_always --no-startup-id compton
 exec_always --no-startup-id xrandr --output LVDS-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-1 -
 
 
+###--- Settings for floating windows ---###
 for_window [instance="^Download"] floating enable
 for_window [instance="^Update"] floating enable
 for_window [instance="^file_progress"] floating enable
@@ -303,3 +304,12 @@ for_window [window_role="Preferences"] floating enable
 for_window [window_role="^Manager"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="GtkFileChooserDialog"] floating enable
+
+###--- Scratchpad terminal setup ---### 
+for_window [instance="scratch"] floating enable
+for_window [instance="scratch"] resize set 625 400
+for_window [instance="scratch"] move position center
+for_window [instance="scratch"] move scratchpad
+exec --no-startup-id urxvt -name scratch
+
+bindsym $mod+u [instance="scratch"] scratchpad show; move position center

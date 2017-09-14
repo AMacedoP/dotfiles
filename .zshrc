@@ -9,7 +9,8 @@ export ZSH=/home/alex/.oh-my-zsh
 
 # Initial settings for zsh
 ZSH_THEME="agnoster"
-export TERM="xterm-256color"
+# export TERM="rxvt-unicode-256color"
+DEFAULT_USER="alex"
 ZSH_TMUX_AUTOSTART="true"
 ZSH_TMUX_AUTOQUIT="true"
 
