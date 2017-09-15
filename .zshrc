@@ -1,3 +1,6 @@
+# Import colorscheme from wal
+(wal -r &)
+
 # If you come from bash you might have to change your $PATH.
 # Plugins loaded
 plugins=(git)
@@ -30,9 +33,6 @@ export KEYTIMEOUT=1
 
 #Don't log duplicate commands
 export HISTCONTROL=ignoredups
-
-# Import colorscheme from wal
-(wal -r &)
 
 # Aliases
 alias zshconfig="vim ~/.zshrc"

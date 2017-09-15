@@ -3,6 +3,9 @@
 # Set mod to WindowsKey
 set $mod Mod4
 
+# Set terminal
+set $term urxvtc
+
 # Set Font in i3
 font pango:System San Francisco Display Regular 10
 
@@ -10,7 +13,7 @@ font pango:System San Francisco Display Regular 10
 floating_modifier $mod
 
 # Start a terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec $term
 
 # Kill focused window
 bindsym $mod+Shift+q kill
@@ -154,8 +157,8 @@ bindsym $mod+r mode "resize"
 
 # Gaps configuration
 
-set $default_gaps_inner 15
-set $default_gaps_outer 15
+set $default_gaps_inner 10
+set $default_gaps_outer 10
 gaps inner $default_gaps_inner
 gaps outer $default_gaps_outer
 
@@ -218,7 +221,7 @@ mode "$mode_system" {
 
 bindsym $mod+Pause mode "$mode_system"
 
-# Colors configuration
+###--- Colors configuration ---###
 set_from_resource $bg         i3wm.color2 #ff0000
 set_from_resource $bg-alt     i3wm.color1 #ff0000
 set_from_resource $fg         i3wm.color7 #ff0000
@@ -232,7 +235,7 @@ client.unfocused        $bg      $bg-alt     $fg   $bg       $bg
 client.focused_inactive $bg      $bg-alt     $fg   $bg       $bg
 client.urgent           $bg      $bg-alt     $fg   $bg       $bg
 
-# Start i3blocks
+###--- Bar configuration ---###
 bar {
    status_command i3blocks -c ~/.config/i3/i3blocks.conf
    position top
@@ -253,7 +256,7 @@ focus_follows_mouse yes
 bindsym $mod+Shift+s sticky toggle
 
 # Window borders
-new_window 1pixel
+new_window pixel
 
 # Start rofi (a program launcher)
 bindsym $mod+d exec rofi -show run
@@ -280,13 +283,13 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 
 # Network Manager Applet
-exec_always --no-startup-id nm-applet
+# exec_always --no-startup-id nm-applet
 
 # KDE Connect Applet
 # exec_always --no-startup-id indicator-kdeconnect
 
 # Compton
-exec_always --no-startup-id compton
+# exec_always --no-startup-id compton
 
 # Wallpaper
 # exec_always --no-startup-id feh --randomize --bg-scale ~/Pictures/*
@@ -305,11 +308,11 @@ for_window [window_role="^Manager"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="GtkFileChooserDialog"] floating enable
 
-###--- Scratchpad terminal setup ---### 
+###--- Scratchpad terminal setup ---###
 for_window [instance="scratch"] floating enable
-for_window [instance="scratch"] resize set 625 400
+for_window [instance="scratch"] resize set 750 500
 for_window [instance="scratch"] move position center
 for_window [instance="scratch"] move scratchpad
-exec --no-startup-id urxvt -name scratch
 
 bindsym $mod+u [instance="scratch"] scratchpad show; move position center
+bindsym $mod+Shift+u exec --no-startup-id $term -name scratch

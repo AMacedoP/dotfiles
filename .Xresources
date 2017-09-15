@@ -1,0 +1,40 @@
+#define FONT DejaVu Sans Mono for Powerline
+#define FONT2 Font Awesome
+#define SIZE 17
+#define DPI 120
+
+!--- URXVT ---!
+URxvt*perl-ext-common:  default,resize-font,selection-to-clipboard,matcher
+URxvt*font:             xft:FONT:pixelsize=SIZE:style=Book:antialias=true:hinting=true:autohint=true, \
+                        xft:FONT2:pixelsize=SIZE:style=Regular:antialias=true:hinting=true:autohint=true
+URxvt*boldFont:         xft:FONT:pixelsize=SIZE:style=Bold:antialias=true:hinting=true:autohint=true, \
+                        xft:FONT2:pixelsize=SIZE:style=Bold:antialias=true:hinting=true:autohint=true
+URxvt*url-launcher:     /usr/bin/google-chrome-stable
+URxvt*scrollBar:        false
+URxvt*background:       [10]#ffffff
+URxvt*depth:            32
+URxvt.iso14755:         false
+URxvt*dynamicColors:    on
+URxvt.internalBorder:   10
+URxvt.underlineURLs:    true
+URxvt.matcher.button:   C1
+URxvt*buffered:         false
+
+! Key bindings
+URxvt.keysym.Shift-Up: command:\033]720;10\007
+URxvt.keysym.Shift-Down: command:\033]721;10\007
+
+!--- ROFI ---!
+rofi.color-enabled:         true
+rofi.separator-style:       solid
+rofi.font:                  FONT SIZE
+rofi.bw:                    2
+rofi.columns:               1
+rofi.yoffset:               0
+rofi.fake-transparency:     true
+rofi.hide-scrollbar:        true
+rofi.opacity:               40
+rofi.location:              0
+rofi.width:                 40
+rofi.lines:                 5
+rofi.fixed-num-lines:       true
