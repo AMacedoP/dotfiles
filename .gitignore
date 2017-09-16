@@ -1,0 +1,4 @@
+# Ignoring ranger individual files
+ranger/history
+ranger/bookmarks
+ranger/tagged

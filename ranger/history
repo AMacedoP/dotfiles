@@ -1,6 +1,0 @@
-delete
-shell ./trap.sh
-shell ./trap.sh %s
-wq
-open_with 
-
