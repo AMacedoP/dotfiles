@@ -115,10 +115,6 @@ bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace10
 
 assign [class="Google-chrome"] $workspace2
-assign [class="netease-cloud-music"] $workspace10
-
-# Making NetEase Cloud Music floating and in a specific position
-#for_window [class="netease-cloud-music"] floating enable, resize shrink height 100px, resize shrink width 80px, move position 200px 90px
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload
@@ -316,3 +312,7 @@ for_window [instance="scratch"] move scratchpad
 
 bindsym $mod+u [instance="scratch"] scratchpad show; move position center
 bindsym $mod+Shift+u exec --no-startup-id $term -name scratch
+
+###--- Bindings ---###
+bindsym --release Print exec "~/.Scripts/screenshot whl"
+bindsym --release Shift+Print exec "~/.Scripts/screenshot sel"

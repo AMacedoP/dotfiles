@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Waits for wal to set colors and starts wal-set which launches dunst
+while true; do
+   if [[ ! $color15 ]]; then
+      sh ~/.Scripts/wal-set
+      exit 1
+   fi
+   sleep 0.1
+done
