@@ -11,8 +11,8 @@ fi
 
 # Take screenshot with scrot
 case $1 in
-   "sel")   scrot $TMP -sz;;
-   "whl")   scrot $TMP -z;;
+   "sel")   escrotum $TMP -s;;
+   "whl")   escrotum $TMP ;;
 esac
 
 # Check if screenshot was taken

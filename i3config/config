@@ -298,5 +298,5 @@ bindsym $mod+u [instance="scratch"] scratchpad show; move position center
 bindsym $mod+Shift+u exec --no-startup-id $term -name scratch
 
 ###--- Bindings ---###
-bindsym --release Print exec "~/.Scripts/screenshot whl"
-bindsym --release Shift+Print exec "~/.Scripts/screenshot sel"
+bindsym --release Print exec --no-startup-id "~/.Scripts/screenshot whl"
+bindsym --release Shift+Print exec --no-startup-id "~/.Scripts/screenshot sel"
