@@ -3,10 +3,10 @@
 # Set mod to WindowsKey
 set $mod Mod4
 
-# Set terminal
+# Set terminal (deamonized urxvt)
 set $term urxvtc
 
-# Set Font in i3
+# Set Font in i3 (also using Font Awesome)
 font pango:System San Francisco Display Regular 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -14,6 +14,9 @@ floating_modifier $mod
 
 # Start a terminal
 bindsym $mod+Return exec $term
+
+# Start a terminal with ranger
+bindsym $mod+Shift+Return exec $term -e ranger
 
 # Kill focused window
 bindsym $mod+Shift+q kill
@@ -114,6 +117,7 @@ bindsym $mod+Shift+8 move container to workspace $workspace8
 bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace10
 
+# Assign programs to workspaces
 assign [class="Google-chrome"] $workspace2
 
 # Reload the configuration file
@@ -217,7 +221,7 @@ mode "$mode_system" {
 
 bindsym $mod+Pause mode "$mode_system"
 
-###--- Colors configuration ---###
+###--- Colors configuration ---### {{{
 set_from_resource $bg         i3wm.color2 #ff0000
 set_from_resource $bg-alt     i3wm.color1 #ff0000
 set_from_resource $fg         i3wm.color7 #ff0000
@@ -230,8 +234,9 @@ client.focused          $fg-alt  $bg         $fg   $fg-alt   $fg-alt-alt
 client.unfocused        $bg      $bg-alt     $fg   $bg       $bg
 client.focused_inactive $bg      $bg-alt     $fg   $bg       $bg
 client.urgent           $bg      $bg-alt     $fg   $bg       $bg
+# }}}
 
-###--- Bar configuration ---###
+###--- Bar configuration ---### {{{
 bar {
    status_command i3blocks -c ~/.config/i3/i3blocks.conf
    position top
@@ -244,6 +249,7 @@ bar {
       urgent_workspace   $bg    $bg        $fg-alt
    }
 }
+# }}}
 
 # Focus follows mouse
 focus_follows_mouse yes

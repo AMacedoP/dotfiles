@@ -23,7 +23,7 @@ source $ZSH/oh-my-zsh.sh
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Set vim as editor
-export EDITOR='vim'
+export EDITOR="vim"
 
 # Set ssh key path
 export SSH_KEY_PATH="~/.ssh/rsa_id"
