@@ -12,12 +12,6 @@ font pango:System San Francisco Display Regular 10
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# Start a terminal
-bindsym $mod+Return exec $term
-
-# Start a terminal with ranger
-bindsym $mod+Shift+Return exec $term -e ranger
-
 # Kill focused window
 bindsym $mod+Shift+q kill
 
@@ -54,11 +48,8 @@ bindsym $mod+Shift+Down  move down
 bindsym $mod+Shift+Up    move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
-bindsym $mod+i split h
-
-# split in vertical orientation
-bindsym $mod+v split v
+# Toggle split
+bindsym $mod+t split toggle
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -129,33 +120,13 @@ bindsym $mod+Shift+r restart
 # Exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec --no-startup-id ~/.Scripts/exit_menu
 
-# Resize window (you can also use the mouse for that)
-mode "resize" {
-   # These bindings trigger as soon as you enter the resize mode
+# Resizing windows
+bindsym $mod+minus  resize shrink width 10 px or 10 ppt
+bindsym $mod+Shift+equal  resize grow height 10 px or 10 ppt
+bindsym $mod+Shift+minus    resize shrink height 10 px or 10 ppt
+bindsym $mod+equal resize grow width 10 px or 10 ppt
 
-   # Pressing left will shrink the window’s width.
-   # Pressing right will grow the window’s width.
-   # Pressing up will shrink the window’s height.
-   # Pressing down will grow the window’s height.
-   bindsym $leftHome  resize shrink width 10 px or 10 ppt
-   bindsym $downHome  resize grow height 10 px or 10 ppt
-   bindsym $upHome    resize shrink height 10 px or 10 ppt
-   bindsym $rightHome resize grow width 10 px or 10 ppt
-
-   # same bindings, but for the arrow keys
-   bindsym Left  resize shrink width 10 px or 10 ppt
-   bindsym Down  resize grow height 10 px or 10 ppt
-   bindsym Up    resize shrink height 10 px or 10 ppt
-   bindsym Right resize grow width 10 px or 10 ppt
-
-   # back to normal: Enter or Escape
-   bindsym Return mode "default"
-   bindsym Escape mode "default"
-}
-
-bindsym $mod+r mode "resize"
-
-# Gaps configuration
+###--- Gaps configuration ---### {{{
 
 set $default_gaps_inner 10
 set $default_gaps_outer 10
@@ -163,63 +134,10 @@ gaps inner $default_gaps_inner
 gaps outer $default_gaps_outer
 
 smart_gaps on
+#}}}
 
-set $mode_gaps Gaps: (o) outer, (i) inner
-set $mode_gaps_outer Outer Gaps: +|-|d|0 (local), Shift + +|-|d|0 (global)
-set $mode_gaps_inner Inner Gaps: +|-|d|0 (local), Shift + +|-|d|0 (global)
-bindsym $mod+Shift+g mode "$mode_gaps"
-
-mode "$mode_gaps" {
-   bindsym o      mode "$mode_gaps_outer"
-   bindsym i      mode "$mode_gaps_inner"
-   bindsym Return mode "default"
-   bindsym Escape mode "default"
-}
-
-mode "$mode_gaps_inner" {
-   bindsym plus  gaps inner current plus 5
-   bindsym minus gaps inner current minus 5
-   bindsym 0     gaps inner current set 0
-   bindsym d     gaps inner current set $default_gaps_inner
-
-   bindsym Shift+plus  gaps inner all plus 5
-   bindsym Shift+minus gaps inner all minus 5
-   bindsym Shift+0     gaps inner all set 0
-   bindsym Shift+d     gaps inner all set $default_gaps_inner
-
-   bindsym Return mode "default"
-   bindsym Escape mode "default"
-}
-mode "$mode_gaps_outer" {
-   bindsym plus  gaps outer current plus 5
-   bindsym minus gaps outer current minus 5
-   bindsym 0     gaps outer current set 0
-   bindsym d     gaps outer current set $default_gaps_outer
-
-   bindsym Shift+plus  gaps outer all plus 5
-   bindsym Shift+minus gaps outer all minus 5
-   bindsym Shift+0     gaps outer all set 0
-   bindsym Shift+d     gaps outer all set $default_gaps_outer
-
-   bindsym Return mode "default"
-   bindsym Escape mode "default"
-}
-
-#System shutdown, suspend, lock, restart
-
-set $mode_system System (l) lock, (s) suspend, (r) reboot, (Shift+s) shutdown
-mode "$mode_system" {
-   bindsym l exec --no-startup-id ~/.Scripts/i3exit lock, mode "default"
-   bindsym s exec --no-startup-id ~/.Scripts/i3exit suspend, mode "default"
-   bindsym r exec --no-startup-id ~/.Scripts/i3exit reboot, mode "default"
-   bindsym Shift+s exec --no-startup-id ~/.Scripts/i3exit shutdown, mode "default"
-
-   # back to normal: Enter or Escape
-   bindsym Return mode "default"
-   bindsym Escape mode "default"
-}
-
-bindsym $mod+Pause mode "$mode_system"
+# System shutdown, suspend, lock, restart
+bindsym $mod+Pause exec --no-startup-id ~/.Scripts/shutdown_menu
 
 ###--- Colors configuration ---### {{{
 set_from_resource $bg         i3wm.color2 #ff0000
@@ -260,9 +178,13 @@ bindsym $mod+Shift+s sticky toggle
 # Window borders
 new_window pixel
 
-# Start rofi (a program launcher)
-bindsym $mod+d exec rofi -show run
+# Keyboard layouts
+#exec --no-startup-id setxkbmap -model pc105 -layout us,es -option grp:alt_shift_toggle
 
+# Screen Renderer (for Toshiba display 1366x768)
+#exec_always --no-startup-id xrandr --output LVDS-1 --primary --mode 1366x768 --pos 0x0 --rotate normal
+
+###--- Media keys ---### {{{
 # Change volume or toggle mute
 exec --no-startup-id amixer -q sset -D pulse Master 50% && pkill -RTMIN+1 i3blocks # To start volume at boot
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset -D pulse Master 2%+ && pkill -RTMIN+1 i3blocks
@@ -273,18 +195,13 @@ bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse sset Master toggle
 bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5 # decrease screen brightness
 
-# Keyboard layouts
-exec --no-startup-id setxkbmap -model pc105 -layout us,es -option grp:alt_shift_toggle
-
 # Media player controls
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
+# }}}
 
-# Screen Renderer (for Toshiba display 1366x768)
-exec_always --no-startup-id xrandr --output LVDS-1 --primary --mode 1366x768 --pos 0x0 --rotate normal
-
-###--- Settings for floating windows ---###
+###--- Automatic floating windows ---### {{{
 for_window [instance="^Download"] floating enable
 for_window [instance="^Update"] floating enable
 for_window [instance="^file_progress"] floating enable
@@ -293,16 +210,28 @@ for_window [window_role="Preferences"] floating enable
 for_window [window_role="^Manager"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="GtkFileChooserDialog"] floating enable
+# }}}
 
-###--- Scratchpad terminal setup ---###
+###--- Scratchpad terminal setup ---### {{{
 for_window [instance="scratch"] floating enable
 for_window [instance="scratch"] resize set 750 500
 for_window [instance="scratch"] move position center
 for_window [instance="scratch"] move scratchpad
-
 bindsym $mod+u [instance="scratch"] scratchpad show; move position center
-bindsym $mod+Shift+u exec --no-startup-id $term -name scratch
+exec --no-startup-id $term -name scratch
+# }}}
 
-###--- Bindings ---###
-bindsym --release Print exec --no-startup-id "~/.Scripts/screenshot whl"
-bindsym --release Shift+Print exec --no-startup-id "~/.Scripts/screenshot sel"
+###--- Bindings for programs or scripts ---### {{{
+# Screenshot to clipboard
+bindsym Print exec --no-startup-id "~/.Scripts/screenshot whl"
+bindsym Shift+Print exec --no-startup-id "~/.Scripts/screenshot sel"
+
+# Start rofi (a program launcher)
+bindsym $mod+d exec rofi -show run
+
+# Start a terminal
+bindsym $mod+Return exec $term
+
+# Start a terminal with ranger
+bindsym $mod+Shift+Return exec $term -e ranger
+# }}}

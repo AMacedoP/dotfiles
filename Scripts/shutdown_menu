@@ -1,0 +1,25 @@
+#!/bin/bash
+
+lock() {
+    i3lock-fancy -gt "Tipia tu contraseña wey!" -- scrot -z
+}
+
+while [ -z "$select" ]; do
+    select=$(echo -e "Shutdown\nReboot\nSuspend\nLock" | dmenu -nb '#2f343f' -nf '#f3f4f5' -sb '#9575cd' -sf '#f3f4f5' -fn '-*-*-medium-r-normal-*-*-*-*-*-*-100-*-*' -i -p "Select your choice")
+done
+[ -z "$select" ] && exit 0
+
+case "$select" in
+    Lock)
+        lock
+        ;;
+    Suspend)
+        systemctl suspend && lock
+        ;;
+    Reboot)
+        systemctl reboot
+        ;;
+    Shutdown)
+        systemctl poweroff
+        ;;
+esac
