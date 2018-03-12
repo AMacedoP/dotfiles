@@ -1,5 +1,5 @@
 # Import colorscheme from wal
-(wal -r &)
+(cat /home/alex/.cache/wal/sequences &)
 
 # If you come from bash you might have to change your $PATH.
 # Plugins loaded

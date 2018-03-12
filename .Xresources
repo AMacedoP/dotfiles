@@ -9,7 +9,7 @@ URxvt*font:             xft:FONT:pixelsize=SIZE:style=Book:antialias=true:hintin
                         xft:FONT2:pixelsize=SIZE:style=Regular:antialias=true:hinting=true:autohint=true
 URxvt*boldFont:         xft:FONT:pixelsize=SIZE:style=Bold:antialias=true:hinting=true:autohint=true, \
                         xft:FONT2:pixelsize=SIZE:style=Bold:antialias=true:hinting=true:autohint=true
-URxvt*url-launcher:     /usr/bin/google-chrome-stable
+URxvt*url-launcher:     /usr/bin/firefox
 URxvt*scrollBar:        false
 URxvt*background:       [10]#ffffff
 URxvt*depth:            32
