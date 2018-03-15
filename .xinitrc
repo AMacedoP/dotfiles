@@ -1,7 +1,7 @@
 compton -b --backend xrender &
 urxvtd -q -f -o &
 wal -R -a "80" &
-xrdb -merge ~/.Xresources &
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 nm-applet &
 dunst &
 setxkbmap -model pc105 -layout "us,es" -variant "altgr-intl," -option grp:alt_shift_toggle &
