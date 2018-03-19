@@ -32,7 +32,7 @@ function send_notification {
     fi
 
     # Send the notification
-    dunstify -i $icon -t 1000 -r 2593 -u  normal " $volume"
+    dunstify -i $icon -t 1000 -r 2593 -u  normal "$volume"
 }
 
 case $1 in

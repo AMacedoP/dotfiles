@@ -15,7 +15,7 @@ floating_modifier $mod
 bindsym $mod+Shift+q kill
 
 # Lock
-bindsym $mod+Shift+x exec --no-startup-id i3lock-fancy -gt "Tipia tu contraseña wey!" -- scrot -z
+bindsym $mod+Shift+x exec --no-startup-id betterlockscreen -l
 
 # Set keys to match vim movements
 set $downHome  j
@@ -154,18 +154,21 @@ client.urgent           $bg      $bg-alt     $fg   $bg       $bg
 # }}}
 
 ###--- Bar configuration ---### {{{
-bar {
-   status_command i3blocks -c ~/.config/i3/i3blocks.conf
-   position top
-   colors {
-      background $bg
-      separator #ffffff
-      # #                border background text
-      focused_workspace  $bg    $bg-alt    $fg-alt-alt
-      inactive_workspace $bg    $bg        $fg-alt
-      urgent_workspace   $bg    $bg        $fg-alt
-   }
-}
+#bar {
+#   status_command i3blocks -c ~/.config/i3/i3blocks.conf
+#   position top
+#   colors {
+#      background $bg
+#      separator #ffffff
+#      # #                border background text
+#      focused_workspace  $bg    $bg-alt    $fg-alt-alt
+#      inactive_workspace $bg    $bg        $fg-alt
+#      urgent_workspace   $bg    $bg        $fg-alt
+#   }
+#}
+
+# Polybar
+exec_always --no-startup-id ~/.Scripts/launch_bars.sh
 # }}}
 
 # Focus follows mouse
@@ -201,6 +204,9 @@ bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5 # decrease screen 
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
+
+# Turn off screen
+bindsym XF86Display exec --no-startup-id xset dpms force off
 # }}}
 
 ###--- Automatic floating windows ---### {{{
@@ -212,6 +218,7 @@ for_window [window_role="Preferences"] floating enable
 for_window [window_role="^Manager"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="GtkFileChooserDialog"] floating enable
+for_window [title="Friends"] floating enable
 # }}}
 
 ###--- Scratchpad terminal setup ---### {{{

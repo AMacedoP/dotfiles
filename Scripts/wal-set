@@ -9,7 +9,7 @@ source "${HOME}/.cache/wal/colors.sh"
 
 reload_dunst() {
     font="DejaVu Sans Mono for Powerline 10"
-    geometry="300x5-20+60"
+    geometry="300x5-10+30"
 
     pkill dunst
     dunst -config ~/.config/dunst/dunstrc \
