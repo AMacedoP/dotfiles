@@ -1,5 +1,5 @@
 compton -b --backend xrender &
-wal -R -a "80" &
+wal -R -a "90" &
 urxvtd -q -f -o &
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 nm-applet &

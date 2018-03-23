@@ -15,6 +15,7 @@ URxvt*background:       [10]#ffffff
 URxvt*depth:            32
 URxvt.iso14755:         false
 URxvt*dynamicColors:    on
+URxvt.letterspace:      -2
 URxvt.internalBorder:   10
 URxvt.underlineURLs:    true
 URxvt.matcher.button:   C1
