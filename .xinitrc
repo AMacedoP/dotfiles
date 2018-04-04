@@ -6,4 +6,5 @@ nm-applet &
 dunst &
 setxkbmap -model pc105 -layout "us" -variant "altgr-intl" -option grp:alt_shift_toggle &
 xrandr --output LVDS-1 --primary --mode 1366x768 --pos 0x0 --rotate normal &
+xflux -l -12 -g -77 &
 exec i3
