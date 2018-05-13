@@ -26,7 +26,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 export EDITOR="vim"
 
 # Set ssh key path
-export SSH_KEY_PATH="~/.ssh/rsa_id"
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Stop the lag in vi mode
 export KEYTIMEOUT=1
