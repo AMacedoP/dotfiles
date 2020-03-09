@@ -1,6 +1,3 @@
-# Import colorscheme from wal
-(cat /home/alex/.cache/wal/sequences &)
-
 # If you come from bash you might have to change your $PATH.
 # Plugins loaded
 plugins=(git)
@@ -8,12 +5,12 @@ plugins=(git)
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/alex/.oh-my-zsh
+export ZSH=/home/zorr/.oh-my-zsh
 
 # Initial settings for zsh
-ZSH_THEME="agnoster"
+ZSH_THEME="af-magic"
 # export TERM="rxvt-unicode-256color"
-DEFAULT_USER="alex"
+DEFAULT_USER="zorr"
 ZSH_TMUX_AUTOSTART="true"
 ZSH_TMUX_AUTOQUIT="true"
 
