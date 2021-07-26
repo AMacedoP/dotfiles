@@ -1,6 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # Plugins loaded
-plugins=(git)
+plugins=(git zsh-nvm)
 
 # Initial settings for zsh
 ZSH_THEME="kolo"
@@ -29,11 +29,13 @@ then
 fi
 
 # Pyenv
-eval "$(pyenv init -)"
+if command -v pyenv > /dev/null 2>&1
+then
+	eval "$(pyenv init -)"
+fi
 
 # Aliases
 alias zshconfig="$EDITOR $XDG_CONFIG_HOME/zsh/.zshrc"
 alias zshrestart="source $XDG_CONFIG_HOME/zsh/.zshrc"
 alias aria2ct="aria2c -c -j 3 -k 1M -x 3 -s 3"
-alias cat="cat-cat"
 alias drop_cache="sudo sh -c \"echo 3 > /proc/sys/vm/drop_caches && swapoff -a && swapon -a && echo 1\""
