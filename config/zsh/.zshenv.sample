@@ -1,11 +1,32 @@
 #!/bin/zsh
 
 # Default programs:
-export EDITOR="vim"
+export EDITOR="nvim"
 
 # ~/ Clean-up
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_CACHE_HOME="$HOME/.cache"
-export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
-export ZSH="${XDG_DATA_HOME:-$HOME/.local/share}/ohmyzsh"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_CACHE_HOME="${HOME}/.cache"
+export ZDOTDIR="${XDG_CONFIG_HOME:-${HOME}/.config}/zsh"
+export ZSH="${XDG_DATA_HOME:-${HOME}/.local/share}/ohmyzsh"
+
+# PATH
+## Java Home
+export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
+## Go Path
+export GOPATH=${HOME}/.go
+export PATH=${GOPATH}/bin:/usr/local/go/bin:${PATH}
+## Deno Path
+export PATH=${HOME}/.local/bin:${HOME}/.deno/bin:${PATH}
+export DENO_INSTALL=${HOME}/.deno
+## NVM_DIR
+export NVM_DIR=${XDG_CONFIG_HOME}/nvm
+## Scripts
+export PATH=${PATH}:${HOME}/scripts
+
+## RUST
+. "${HOME}/.cargo/env"
+
+## Flyctl
+export FLYCTL_INSTALL="${HOME}/.fly"
+export PATH="${FLYCTL_INSTALL}/bin:${PATH}"
