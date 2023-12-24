@@ -1,0 +1,1 @@
+trystan2k/zsh-tab-title

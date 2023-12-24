@@ -1,22 +1,26 @@
-# If you come from bash you might have to change your $PATH.
-# Plugins loaded
-plugins=(git)
+# Source antidote
+source ${ZDOTDIR:-~}/antidote/antidote.zsh
+antidote load ${ZDOTDIR:-$HOME}/zsh-plugins.txt
 
 # Initial settings for zsh
 ZSH_THEME="kolo"
 DEFAULT_USER="$USER"
+# History
 HISTFILE="$XDG_DATA_HOME/zsh/zsh_history"
+HISTSIZE=100000
+SAVEHIST=100000
+setopt appendhistory
+
 ZSH_TMUX_AUTOSTART="true"
 ZSH_TMUX_AUTOQUIT="true"
+
+ZSH_THEME_TERM_TITLE_IDLE="%n@%m: %~"
 
 # Untracked files for VCS
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Completions file
 fpath=($XDG_DATA_HOME/zsh/completions $fpath)
-
-# Sourcing OhMyZSH
-source $ZSH/oh-my-zsh.sh
 
 # Stop the lag in vi mode
 export KEYTIMEOUT=1
@@ -27,6 +31,9 @@ export HISTCONTROL=ignoredups
 # Completion
 autoload -U compinit
 compinit -i
+
+# Sensible WORDCHARS
+WORDCHARS='*?[]~=&;!#$%^(){}<>'
 
 # KEYCHAIN
 if command -v keychain > /dev/null 2>&1
@@ -41,11 +48,18 @@ if [ -f '/home/alex/google-cloud-sdk/path.zsh.inc' ]; then . '/home/alex/google-
 ## The next line enables shell command completion for gcloud.
 if [ -f '/home/alex/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/alex/google-cloud-sdk/completion.zsh.inc'; fi
 
+# Bindkey
+source ${ZDOTDIR}/bindkeys.zsh
+
 # Aliases
 alias zshconfig="$EDITOR $XDG_CONFIG_HOME/zsh/.zshrc"
 alias zshrestart="source $XDG_CONFIG_HOME/zsh/.zshrc"
 alias aria2ct="aria2c -c -j 3 -k 1M -x 3 -s 3"
 alias drop_cache="sudo sh -c \"echo 3 > /proc/sys/vm/drop_caches && swapoff -a && swapon -a && echo 1\""
+alias ls="exa --color=auto"
+alias cd="z"
+
+source ${ZDOTDIR}/git-alias.zsh
 
 # Starship init
 eval "$(starship init zsh)"
@@ -53,3 +67,5 @@ eval "$(starship init zsh)"
 eval "$(direnv hook zsh)"
 # Rtx init
 eval "$(rtx activate zsh)"
+# Zoxide init
+eval "$(zoxide init zsh)"
