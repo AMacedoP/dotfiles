@@ -1,27 +1,66 @@
-# Source antidote
-source ${ZDOTDIR:-~}/antidote/antidote.zsh
-antidote load ${ZDOTDIR:-$HOME}/zsh-plugins.txt
+# For debug startup times
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zmodload zsh/zprof
+fi
 
-# Initial settings for zsh
-DEFAULT_USER="$USER"
+# Antidote (plugin manager)
+ANTIDOTE_HOME="${XDG_DATA_HOME}/antidote"
+if [ ! -d "${ANTIDOTE_HOME}" ]; then
+    echo "Installing antidote"
+    git clone --depth=1 https://github.com/mattmc3/antidote.git "${ANTIDOTE_HOME}"
+fi
+
+# TPM (tmux plugin manager)
+TPM_HOME="${XDG_DATA_HOME}/tpm"
+if [ ! -d "${TPM_HOME}" ]; then
+    echo "Installing TPM"
+    git clone --depth=1 https://github.com/tmux-plugins/tpm "${TPM_HOME}"
+fi
+
+source "${ANTIDOTE_HOME}/antidote.zsh"
+antidote load "${ZDOTDIR:-$HOME}/zsh-plugins.txt"
+
+## Settings for zsh
+DEFAULT_USER="${USER}"
 # History
-HISTFILE="$XDG_DATA_HOME/zsh/zsh_history"
+HISTFILE="${XDG_DATA_HOME}/zsh/zsh_history"
 HISTSIZE=100000
 SAVEHIST=100000
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
 setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# Options
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
 # Completions file
-fpath=($XDG_DATA_HOME/zsh/completions $fpath)
+fpath=(${XDG_DATA_HOME}/zsh/completions $fpath)
+
+# Completion
+# Check the cache once a day and compile it with `zcompile` once a day
+autoload -Uz compinit
+COMPFILE="${XDG_DATA_HOME}/zsh/compdump"
+COMPFILECOMPILED="${XDG_DATA_HOME}/zsh/compdump.zwc"
+if [ $(find "${COMPFILE}" -mtime +1 >/dev/null) ] ; then
+    compinit -d "${COMPFILE}"
+    { rm -f "${COMPFILE}" && zcompile "${COMPFILECOMPILED}" } &!
+fi
+compinit -C -d "${COMPFILE}"
+{ [[ ! -f "$COMPFILECOMPILED" || "$COMPFILE" -nt "$COMPFILECOMPILED" ]] && rm -f "$COMPFILECOMPILED" && zcompile "$COMPFILE" } &!
 
 # Stop the lag in vi mode
 export KEYTIMEOUT=1
-
-# Don't log duplicate commands
-export HISTCONTROL=ignoredups
-
-# Completion
-autoload -U compinit
-compinit -i
 
 # Sensible WORDCHARS
 WORDCHARS='*?[]~=&;!#$%^(){}<>'
@@ -29,31 +68,42 @@ WORDCHARS='*?[]~=&;!#$%^(){}<>'
 # KEYCHAIN
 if command -v keychain > /dev/null 2>&1
 then
-	/usr/bin/keychain --nogui $HOME/.ssh/id_rsa $HOME/.ssh/whitestack $HOME/.ssh/whitestack-bitbucket
-	source $HOME/.keychain/$HOST-sh
+    /usr/bin/keychain --quiet --nogui ${HOME}/.ssh/id_rsa ${HOME}/.ssh/whitestack ${HOME}/.ssh/whitestack-bitbucket
+    source ${HOME}/.keychain/${HOST}-sh
 fi
 
-# Starship init
-eval "$(starship init zsh)"
+# Check that the function `starship_zle-keymap-select()` is defined.
+# xref: https://github.com/starship/starship/issues/3418
+type starship_zle-keymap-select >/dev/null || \
+  {
+    eval "$(starship init zsh)"
+  }
 # Direnv init
 eval "$(direnv hook zsh)"
-# Rtx init
-eval "$(rtx activate zsh)"
+# Mise init
+eval "$(mise activate zsh)"
 # Zoxide init
 eval "$(zoxide init zsh --hook prompt --cmd cd)"
+# Fzf init
+eval "$(fzf --zsh)"
 
 # Bindkey
 source ${ZDOTDIR}/bindkeys.zsh
 
 # Aliases
-source ${ZDOTDIR}/git-alias.zsh
-alias zshconfig="$EDITOR $XDG_CONFIG_HOME/zsh/.zshrc"
-alias zshrestart="source $XDG_CONFIG_HOME/zsh/.zshrc"
+alias zshconfig="${EDITOR} ${XDG_CONFIG_HOME}/zsh/.zshrc"
+alias zshrestart="source ${XDG_CONFIG_HOME}/zsh/.zshrc"
 alias aria2ct="aria2c -c -j 3 -k 1M -x 3 -s 3"
 alias drop_cache="sudo sh -c \"echo 3 > /proc/sys/vm/drop_caches && swapoff -a && swapon -a && echo 1\""
 alias ls="eza --color=auto"
-alias tf="terraform"
+alias tf="tofu"
 alias tm="~/.dotfiles/scripts/tmux-sessionizer.sh"
+alias grupp="grup --prune"
+alias zshdebug="time ZSH_DEBUGRC=1 zsh -i -c exit"
 
 # Compdef
 compdef _terraform tf
+
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zprof
+fi

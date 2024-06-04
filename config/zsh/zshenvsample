@@ -1,5 +1,4 @@
 #!/bin/zsh
-
 # Default programs:
 export EDITOR="nvim"
 
@@ -14,10 +13,12 @@ export ZDOTDIR="${XDG_CONFIG_HOME:-${HOME}/.config}/zsh"
 export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
 ## Go Path
 export GOPATH=${HOME}/.go
-export PATH=${GOPATH}/bin:/usr/local/go/bin:${PATH}
+export PATH=${GOPATH}/bin:${PATH}
 ## Deno Path
 export PATH=${HOME}/.local/bin:${HOME}/.deno/bin:${PATH}
 export DENO_INSTALL=${HOME}/.deno
+## NVM_DIR
+export NVM_DIR=$XDG_CONFIG_HOME/nvm
 ## Scripts
 export PATH=${PATH}:${HOME}/scripts
 
@@ -26,4 +27,14 @@ export PATH=${PATH}:${HOME}/scripts
 
 ## Flyctl
 export FLYCTL_INSTALL="${HOME}/.fly"
-export PATH="${FLYCTL_INSTALL}/bin:${PATH}"
+export PATH="$FLYCTL_INSTALL/bin:${PATH}"
+
+## KREW
+export KREW_ROOT="${XDG_DATA_HOME}/krew"
+# Krew PATH
+export PATH="${KREW_ROOT:-$XDG_DATA_HOME/krew}/bin:${PATH}"
+
+## Add local scripts to PATH
+if [ -d "${HOME}/.dotfiles/scripts" ]; then
+        export PATH="${HOME}/.dotfiles/scripts:${PATH}"
+fi

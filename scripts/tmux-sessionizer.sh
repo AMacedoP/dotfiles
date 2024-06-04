@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/whitestack ~/opensource ~/rust -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$(find ~/whitestack ~/opensource ~/rust ~/projects ~/exploration -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
 if [[ -z $selected ]]; then

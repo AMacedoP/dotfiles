@@ -1,1 +1,6 @@
 trystan2k/zsh-tab-title
+Aloxaf/fzf-tab
+zsh-users/zsh-completions
+
+# OMZ plugins
+ohmyzsh/ohmyzsh path:plugins/git
