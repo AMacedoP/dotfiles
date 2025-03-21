@@ -40,9 +40,11 @@ setopt hist_find_no_dups
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
+zstyle ':fzf-tab:*' fzf-flags --style=full
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*' popup-min-size 50 10
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
 # Completions file
 fpath=(${XDG_DATA_HOME}/zsh/completions $fpath)
@@ -90,6 +92,9 @@ eval "$(fzf --zsh)"
 # Bindkey
 source ${ZDOTDIR}/bindkeys.zsh
 
+# LESS options
+export LESS='-R'
+
 # Aliases
 alias zshconfig="${EDITOR} ${XDG_CONFIG_HOME}/zsh/.zshrc"
 alias zshrestart="source ${XDG_CONFIG_HOME}/zsh/.zshrc"
@@ -109,5 +114,4 @@ if [ -n "${ZSH_DEBUGRC+1}" ]; then
 fi
 
 . "$HOME/.atuin/bin/env"
-
 eval "$(atuin init zsh --disable-up-arrow)"
